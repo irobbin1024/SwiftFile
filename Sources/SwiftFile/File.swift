@@ -98,7 +98,7 @@ public class File {
     
     /// 初始化方法
     /// - Parameter path: 路径
-    init(path: String) throws {
+    public init(path: String) throws {
         var isDirectory: ObjCBool = false
         if FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) == false {
 //            throw CommonError.runtimeError("无法构建这个File对象")
@@ -179,7 +179,7 @@ public class File {
 /// 文件操作的扩展
 extension File {
     
-    func createFileIfNotExists() {
+    public func createFileIfNotExists() {
         guard self.fileExists == false else {
             return
         }
@@ -189,7 +189,7 @@ extension File {
         }
     }
     /// 删除文件
-    func delete() throws {
+    public func delete() throws {
         guard let absolutePath = self.absolutePath else {
             return
         }
@@ -199,7 +199,7 @@ extension File {
     /// 找到对应文件名的文件
     /// - Parameter fileName: 文件名
     /// - Returns: 文件对象
-    func findFile(_ fileName: String) throws -> File? {
+    public func findFile(_ fileName: String) throws -> File? {
         guard self.isDirectory else {
             return nil
         }
