@@ -99,16 +99,13 @@ public class File {
     /// 初始化方法
     /// - Parameter path: 路径
     public init(path: String) throws {
-        var isDirectory: ObjCBool = false
-
-        
-        self.isDirectory = isDirectory.boolValue
         self.fileName = (path as NSString).lastPathComponent
         self.fileNameWithoutExtension = ((path as NSString).lastPathComponent as NSString).deletingPathExtension
         self.absolutePath = path
         
-        
+        var isDirectory: ObjCBool = false
         if FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) {
+            self.isDirectory = isDirectory.boolValue
             self.creationDate = (try FileManager.default.attributesOfItem(atPath: path)[.creationDate] as? Date)?.timeIntervalSince1970 ?? 0.0
         }
     }
