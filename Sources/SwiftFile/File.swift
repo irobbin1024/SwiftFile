@@ -108,7 +108,7 @@ public class File {
         self.absolutePath = path
         
         
-        if FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) == false {
+        if FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) {
             self.creationDate = (try FileManager.default.attributesOfItem(atPath: path)[.creationDate] as? Date)?.timeIntervalSince1970 ?? 0.0
         }
     }
