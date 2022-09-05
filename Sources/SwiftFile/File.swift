@@ -100,15 +100,17 @@ public class File {
     /// - Parameter path: 路径
     public init(path: String) throws {
         var isDirectory: ObjCBool = false
-        if FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) == false {
-//            throw CommonError.runtimeError("无法构建这个File对象")
-        }
+
         
         self.isDirectory = isDirectory.boolValue
         self.fileName = (path as NSString).lastPathComponent
         self.fileNameWithoutExtension = ((path as NSString).lastPathComponent as NSString).deletingPathExtension
         self.absolutePath = path
-        self.creationDate = (try FileManager.default.attributesOfItem(atPath: path)[.creationDate] as? Date)?.timeIntervalSince1970 ?? 0.0
+        
+        
+        if FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) == false {
+            self.creationDate = (try FileManager.default.attributesOfItem(atPath: path)[.creationDate] as? Date)?.timeIntervalSince1970 ?? 0.0
+        }
     }
     
     /// 扫描目录下的所有文件
